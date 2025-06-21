@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Login & Register</title>
+  <title>Login/Register Portal</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f0f0f0;
+      background: #f4f4f4;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -18,17 +18,17 @@
       padding: 30px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 300px;
+      width: 350px;
     }
 
     h2 {
       text-align: center;
     }
 
-    input[type="text"], input[type="password"] {
+    input {
       width: 100%;
       padding: 10px;
-      margin: 10px 0;
+      margin: 8px 0;
       border: 1px solid #ccc;
       border-radius: 4px;
     }
@@ -36,7 +36,7 @@
     button {
       width: 100%;
       padding: 10px;
-      background: #4CAF50;
+      background: #5cb85c;
       color: white;
       border: none;
       border-radius: 4px;
@@ -44,96 +44,85 @@
     }
 
     button:hover {
-      background: #45a049;
+      background: #4cae4c;
     }
 
     .toggle {
       text-align: center;
-      margin-top: 15px;
-      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .toggle a {
       color: #007BFF;
+      cursor: pointer;
+      text-decoration: none;
     }
 
-    .error {
-      color: red;
-      font-size: 0.9em;
-      text-align: center;
-      display: none;
+    .toggle a:hover {
+      text-decoration: underline;
     }
 
-    .success {
-      color: green;
-      font-size: 0.9em;
-      text-align: center;
+    .hidden {
       display: none;
     }
   </style>
 </head>
 <body>
-
   <div class="container">
-    <!-- Login Form -->
-    <div id="loginForm">
+    <div id="login-form">
       <h2>Login</h2>
-      <input type="text" id="loginUsername" placeholder="Username" required>
-      <input type="password" id="loginPassword" placeholder="Password" required>
-      <p class="error" id="loginError">Invalid credentials</p>
+      <input type="email" id="login-email" placeholder="Email" required>
+      <input type="password" id="login-password" placeholder="Password" required>
       <button onclick="login()">Login</button>
-      <div class="toggle" onclick="toggleForm()">Don't have an account? Register</div>
+      <div class="toggle">
+        Don't have an account? <a onclick="toggleForms()">Register</a>
+      </div>
     </div>
 
-    <!-- Register Form -->
-    <div id="registerForm" style="display: none;">
+    <div id="register-form" class="hidden">
       <h2>Register</h2>
-      <input type="text" id="regUsername" placeholder="New Username" required>
-      <input type="password" id="regPassword" placeholder="New Password" required>
-      <p class="success" id="registerSuccess">Account created! You can now log in.</p>
-      <p class="error" id="registerError">Username already exists</p>
+      <input type="text" id="reg-name" placeholder="Full Name" required>
+      <input type="email" id="reg-email" placeholder="Email" required>
+      <input type="password" id="reg-password" placeholder="Password" required>
+      <input type="text" id="reg-phone" placeholder="Phone Number" required>
       <button onclick="register()">Register</button>
-      <div class="toggle" onclick="toggleForm()">Already have an account? Login</div>
+      <div class="toggle">
+        Already have an account? <a onclick="toggleForms()">Login</a>
+      </div>
     </div>
   </div>
 
   <script>
-    // Simulated storage
-    const users = {};
-
-    function toggleForm() {
-      const login = document.getElementById("loginForm");
-      const register = document.getElementById("registerForm");
-      login.style.display = login.style.display === "none" ? "block" : "none";
-      register.style.display = register.style.display === "none" ? "block" : "none";
-      clearMessages();
-    }
-
-    function clearMessages() {
-      document.getElementById("loginError").style.display = "none";
-      document.getElementById("registerError").style.display = "none";
-      document.getElementById("registerSuccess").style.display = "none";
-    }
-
-    function register() {
-      const username = document.getElementById("regUsername").value;
-      const password = document.getElementById("regPassword").value;
-
-      if (users[username]) {
-        document.getElementById("registerError").style.display = "block";
-        document.getElementById("registerSuccess").style.display = "none";
-      } else {
-        users[username] = password;
-        document.getElementById("registerSuccess").style.display = "block";
-        document.getElementById("registerError").style.display = "none";
-        document.getElementById("regUsername").value = "";
-        document.getElementById("regPassword").value = "";
-      }
+    function toggleForms() {
+      document.getElementById("login-form").classList.toggle("hidden");
+      document.getElementById("register-form").classList.toggle("hidden");
     }
 
     function login() {
-      const username = document.getElementById("loginUsername").value;
-      co
-<form action="register.php" method="POST">
-  <h2>Register</h2>
-  <input type="text" name="username" placeholder="New Username" required>
-  <input type="password" name="password" placeholder="New Password" required>
-  <button type="submit">Register</button>
-</form>
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
+
+      // Dummy login check
+      if (email && password) {
+        alert("Login successful!\n(But this is just a demo)");
+      } else {
+        alert("Please enter email and password.");
+      }
+    }
+
+    function register() {
+      const name = document.getElementById("reg-name").value;
+      const email = document.getElementById("reg-email").value;
+      const password = document.getElementById("reg-password").value;
+      const phone = document.getElementById("reg-phone").value;
+
+      if (name && email && password && phone) {
+        alert("Registration successful!\n(But not actually saved)");
+        toggleForms(); // Switch to login
+      } else {
+        alert("Please fill all fields.");
+      }
+    }
+  </script>
+</body>
+</html>
